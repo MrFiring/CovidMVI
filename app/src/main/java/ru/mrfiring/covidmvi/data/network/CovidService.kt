@@ -7,6 +7,6 @@ const val BASE_URL = "http://api.coronatracker.com/"
 
 interface CovidService {
     @GET("v3/stats/worldometer/global")
-    fun getGlobalStats(): Single<CovidGlobalStats>
+    fun getGlobalStats(): Single<GlobalStats>
 
 }
