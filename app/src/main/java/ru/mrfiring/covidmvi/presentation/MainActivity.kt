@@ -14,17 +14,13 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ObservableSourceActivity<UiEvent>(), Consumer<ViewModel> {
 
-@Inject
-lateinit var feature: GlobalStatsFeature
-
+    @Inject
     lateinit var binder: MainActivityBinder
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binder = MainActivityBinder(this, feature)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
