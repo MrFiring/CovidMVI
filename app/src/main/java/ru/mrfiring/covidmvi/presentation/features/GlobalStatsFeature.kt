@@ -1,19 +1,13 @@
 package ru.mrfiring.covidmvi.presentation.features
 
-import android.util.Log
-import com.badoo.mvicore.element.Actor
-import com.badoo.mvicore.element.Bootstrapper
 import com.badoo.mvicore.element.Reducer
 import com.badoo.mvicore.feature.ActorReducerFeature
-import io.reactivex.Observable
-import io.reactivex.Observable.just
-import io.reactivex.android.schedulers.AndroidSchedulers
-import ru.mrfiring.covidmvi.domain.CovidRepository
 import ru.mrfiring.covidmvi.domain.DomainGlobalStats
+import ru.mrfiring.covidmvi.domain.GlobalStatsActorImpl
 import javax.inject.Inject
 
 class GlobalStatsFeature @Inject constructor(
-    private val actor: ActorImpl
+    private val actor: GlobalStatsActorImpl
 ):
     ActorReducerFeature<GlobalStatsFeature.Wish, GlobalStatsFeature.Effect, GlobalStatsFeature.State, Nothing>(
         initialState = State(),

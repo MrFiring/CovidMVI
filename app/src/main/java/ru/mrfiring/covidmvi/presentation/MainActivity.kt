@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.functions.Consumer
-import ru.mrfiring.covidmvi.R
 import ru.mrfiring.covidmvi.databinding.ActivityMainBinding
 import ru.mrfiring.covidmvi.presentation.event.UiEvent
 import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
 import ru.mrfiring.covidmvi.presentation.viewmodel.ViewModel
+import ru.mrfiring.covidmvi.util.ObservableSourceActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint

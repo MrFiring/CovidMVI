@@ -1,4 +1,4 @@
-package ru.mrfiring.covidmvi.presentation
+package ru.mrfiring.covidmvi.util
 
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.ObservableSource
