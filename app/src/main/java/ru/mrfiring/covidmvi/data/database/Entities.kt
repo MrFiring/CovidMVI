@@ -1,10 +1,12 @@
-package ru.mrfiring.covidmvi.data.network
+package ru.mrfiring.covidmvi.data.database
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@JsonClass(generateAdapter = true)
-data class GlobalStats(
+@Entity
+data class DatabaseGlobalStats(
+    @PrimaryKey(autoGenerate = false)
+    val lastUpdate: Long,
     val cases: Long,
     val todayCases: Long,
     val deaths: Long,
@@ -22,16 +24,12 @@ data class GlobalStats(
     val recoveredPerOneMillion: Double,
     val criticalPerOneMillion: Double,
     val affectedCountries: Int,
-    @Json(name = "updated") val lastUpdate: Long
-)
-@JsonClass(generateAdapter = true)
-data class ContinentCoords(
-    val lat: Double,
-    val long: Double
 )
 
-@JsonClass(generateAdapter = true)
-data class ContinentStats(
+@Entity
+data class DatabaseContinentStats(
+    @PrimaryKey(autoGenerate = false)
+    val continentName: String,
     val cases: Long,
     val todayCases: Long,
     val deaths: Long,
@@ -45,24 +43,24 @@ data class ContinentStats(
     val tests: Long,
     val testsPerOneMillion: Double,
     val population: Long,
-    @Json(name="continent") val continentName: String,
     val activePerOneMillion: Double,
     val recoveredPerOneMillion: Double,
     val criticalPerOneMillion: Double,
-    @Json(name = "continentInfo") val continentCoords: ContinentCoords,
-    @Json(name = "updated") val lastUpdate: Long,
-    @Json(name = "countries") val countriesList: List<String>
+    val lastUpdate: Long,
 )
 
-@JsonClass(generateAdapter = true)
-data class HistoricalData(
-    val cases: Map<String, Long>,
-    val deaths: Map<String, Long>,
-    val recovered: Map<String, Long>
+@Entity
+data class DatabaseContinentCountry(
+    @PrimaryKey(autoGenerate = false)
+    val countryName: String,
+    val continentName: String
 )
 
-@JsonClass(generateAdapter = true)
-data class CountryHistoricalStats(
-    @Json(name = "country") val countryName: String,
-    @Json(name = "timeline") val data: HistoricalData
+@Entity(primaryKeys = ["countryName", "date"])
+data class DatabaseCountryHistoricalStats(
+    val countryName: String,
+    val date: String,
+    val cases: Long,
+    val deaths: Long,
+    val recovered: Long
 )
