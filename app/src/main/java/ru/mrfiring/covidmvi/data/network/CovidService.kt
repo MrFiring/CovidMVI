@@ -4,20 +4,9 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import ru.mrfiring.covidmvi.domain.SortType
 
 const val BASE_URL = "https://disease.sh/v3/"
-
-enum class SortType(val str: String){
-    CASES("cases"),
-    TODAY_CASES("todayCases"),
-    DEATHS("deaths"),
-    TODAY_DEATHS("todayDeaths"),
-    RECOVERED("recovered"),
-    ACTIVE("active"),
-    CRITICAL("critical"),
-    CASES_PER_ONE_MILLION("casesPerOneMillion"),
-    DEATHS_PER_ONE_MILLION("deathsPerOneMillion")
-}
 
 interface CovidService {
     @GET("covid-19/all")
@@ -30,7 +19,7 @@ interface CovidService {
 
     @GET("covid-19/continents")
     fun getStatsByContinents(
-        @Query("sort") sortBy: SortType = SortType.CASES,
+        @Query("sort") sortBy: String,
         @Query("yesterday") showYesterday: Boolean = false,
         @Query("twoDaysAgo") showTwoDaysAgo: Boolean = false,
         @Query("allowNull") allowNullValues: Boolean = false
