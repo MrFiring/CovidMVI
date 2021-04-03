@@ -8,7 +8,7 @@ import ru.mrfiring.covidmvi.databinding.ActivityMainBinding
 import ru.mrfiring.covidmvi.presentation.event.UiEvent
 import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
 import ru.mrfiring.covidmvi.presentation.viewmodel.ViewModel
-import ru.mrfiring.covidmvi.util.ObservableSourceActivity
+import ru.mrfiring.covidmvi.presentation.util.ObservableSourceActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
