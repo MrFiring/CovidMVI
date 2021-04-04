@@ -49,3 +49,13 @@ data class DomainCountryHistoricalStats(
     val deaths: Map<String, Long>,
     val recovered: Map<String, Long>
 )
+
+data class DomainGeneralStats(
+    val name: String,
+    val cases: Long,
+    val todayCases: Long,
+    val recovered: Long,
+    val todayRecovered: Long,
+    val deaths: Long,
+    val todayDeaths: Long
+)
