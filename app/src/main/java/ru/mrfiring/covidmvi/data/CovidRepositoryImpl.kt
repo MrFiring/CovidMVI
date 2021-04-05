@@ -2,6 +2,8 @@ package ru.mrfiring.covidmvi.data
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import ru.mrfiring.covidmvi.data.database.StatsDao
+import ru.mrfiring.covidmvi.data.mappers.asDatabaseObject
 import ru.mrfiring.covidmvi.data.mappers.asDomainObject
 import ru.mrfiring.covidmvi.data.network.CovidService
 import ru.mrfiring.covidmvi.domain.CovidRepository
@@ -9,11 +11,26 @@ import ru.mrfiring.covidmvi.domain.DomainGlobalStats
 import javax.inject.Inject
 
 class CovidRepositoryImpl @Inject constructor(
-    private val covidService: CovidService
+    private val covidService: CovidService,
+    private val statsDao: StatsDao
 ): CovidRepository {
-    override fun getGlobalStats(): Single<DomainGlobalStats> {
+    override fun fetchGlobalStats(): Single<DomainGlobalStats> {
         return covidService.getGlobalStats()
-            .observeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
+            .map {
+                it.asDatabaseObject()
+            }
+            .doOnSuccess {
+                statsDao.insertGlobalStats(it)
+            }
+            .map {
+                it.asDomainObject()
+            }
+    }
+
+    override fun getGlobalStatsFromCache(): Single<DomainGlobalStats> {
+        return statsDao.getGlobalStats()
+            .subscribeOn(Schedulers.io())
             .map {
                 it.asDomainObject()
             }
