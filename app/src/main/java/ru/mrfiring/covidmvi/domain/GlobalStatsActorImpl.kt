@@ -13,9 +13,7 @@ class GlobalStatsActorImpl @Inject constructor(
 
     override fun invoke(state: GlobalStatsFeature.State, wish: GlobalStatsFeature.Wish): Observable<GlobalStatsFeature.Effect> {
         return when(wish){
-            is GlobalStatsFeature.Wish.LoadNewGlobalStats -> repository.getGlobalStats()
-                .doOnError {
-                    Log.e("REPO", it.stackTraceToString()) }
+            is GlobalStatsFeature.Wish.LoadNewGlobalStats -> repository.fetchGlobalStats()
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable {
                     Observable.just(GlobalStatsFeature.Effect.LoadedGlobalStats(it) as GlobalStatsFeature.Effect)

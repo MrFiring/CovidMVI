@@ -6,19 +6,19 @@ import com.badoo.mvicore.feature.ActorReducerFeature
 import io.reactivex.Observable
 import io.reactivex.Observable.just
 import ru.mrfiring.covidmvi.domain.DomainGlobalStats
-import ru.mrfiring.covidmvi.domain.GlobalStatsActorImpl
+import ru.mrfiring.covidmvi.domain.GlobalStatsCacheActorImpl
 import javax.inject.Inject
 
-class GlobalStatsFeature @Inject constructor(
-    private val actor: GlobalStatsActorImpl
-):
-    ActorReducerFeature<GlobalStatsFeature.Wish, GlobalStatsFeature.Effect, GlobalStatsFeature.State, Nothing>(
-        initialState = State(),
-        actor = actor,
-        bootstrapper = BootstrapperImpl(),
-        reducer = ReducerImpl()
-    ) {
-
+class GlobalStatsCacheFeature @Inject constructor(
+    actor: GlobalStatsCacheActorImpl
+): ActorReducerFeature<GlobalStatsCacheFeature.Wish,
+        GlobalStatsCacheFeature.Effect,
+        GlobalStatsCacheFeature.State, Nothing>(
+    initialState = State(),
+    bootstrapper = BootstrapperImpl(),
+    actor = actor,
+    reducer = ReducerImpl()
+){
 
     data class State(
         val isLoading: Boolean = false,
@@ -26,7 +26,7 @@ class GlobalStatsFeature @Inject constructor(
     )
 
     sealed class Wish{
-        object LoadNewGlobalStats: Wish()
+        object LoadGlobalStatsFromCache: Wish()
     }
 
     sealed class Effect{
@@ -36,17 +36,17 @@ class GlobalStatsFeature @Inject constructor(
     }
 
     private class BootstrapperImpl: Bootstrapper<Wish>{
-        override fun invoke(): Observable<Wish> = just(Wish.LoadNewGlobalStats)
+        override fun invoke(): Observable<Wish> = just(Wish.LoadGlobalStatsFromCache)
     }
 
-    private class ReducerImpl: Reducer<State, Effect> {
+    private class ReducerImpl: Reducer<State, Effect>{
         override fun invoke(state: State, effect: Effect): State = when(effect){
             Effect.StartedLoading -> state.copy(
                 isLoading = true
             )
             is Effect.LoadedGlobalStats -> state.copy(
                 isLoading = false,
-                globalStats =  effect.globalStats
+                globalStats = effect.globalStats
             )
             is Effect.ErrorLoading -> state.copy(
                 isLoading = false
