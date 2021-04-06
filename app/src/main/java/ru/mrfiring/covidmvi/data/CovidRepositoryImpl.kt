@@ -20,12 +20,13 @@ class CovidRepositoryImpl @Inject constructor(
             .map {
                 it.asDatabaseObject()
             }
-            .doOnSuccess {
+            .flatMapCompletable {
                 statsDao.insertGlobalStats(it)
             }
-            .map {
+            .andThen(statsDao.getGlobalStats().map {
                 it.asDomainObject()
-            }
+            })
+
     }
 
     override fun getGlobalStatsFromCache(): Single<DomainGlobalStats> {

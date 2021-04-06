@@ -15,7 +15,7 @@ class GlobalStatsActorImpl @Inject constructor(
         return when(wish){
             is GlobalStatsFeature.Wish.LoadNewGlobalStats -> repository.fetchGlobalStats()
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMapObservable {
+                .flatMapObservable{
                     Observable.just(GlobalStatsFeature.Effect.LoadedGlobalStats(it) as GlobalStatsFeature.Effect)
                 }
                 .startWith(Observable.just(GlobalStatsFeature.Effect.StartedLoading))
