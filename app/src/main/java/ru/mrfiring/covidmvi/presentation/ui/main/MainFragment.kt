@@ -9,8 +9,6 @@ import io.reactivex.functions.Consumer
 import ru.mrfiring.covidmvi.R
 import ru.mrfiring.covidmvi.databinding.FragmentMainBinding
 import ru.mrfiring.covidmvi.presentation.event.UiEvent
-import ru.mrfiring.covidmvi.presentation.features.GlobalStatsCacheFeature
-import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
 import ru.mrfiring.covidmvi.presentation.util.ObservableSourceFragment
 import ru.mrfiring.covidmvi.presentation.viewmodel.ViewModel
 import javax.inject.Inject
@@ -20,9 +18,7 @@ import javax.inject.Inject
 class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
 
     @Inject
-    lateinit var globalStatsFeature: GlobalStatsFeature
-    @Inject
-    lateinit var globalStatsCacheFeature: GlobalStatsCacheFeature
+    lateinit var mainBinderFactory: MainFragmentBinder.MainFragmentBinderFactory
 
     private lateinit var binding: FragmentMainBinding
 
@@ -32,11 +28,7 @@ class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        val binder = MainFragmentBinder(
-            this,
-            globalStatsCacheFeature,
-            globalStatsFeature
-        )
+        val binder = mainBinderFactory.create(this)
         binder.setup(this)
 
         return binding.root
