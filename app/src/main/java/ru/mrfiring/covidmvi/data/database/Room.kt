@@ -6,13 +6,13 @@ import io.reactivex.Single
 
 
 @Dao
-interface StatsDao{
+interface StatsDao {
 
     //Get queries
     @Query("select * from DatabaseGlobalStats")
     fun getGlobalStats(): Single<DatabaseGlobalStats>
 
-    @Query("select * from DatabaseContinentCountry")
+    @Query("select * from DatabaseContinentStats")
     fun getContinentStatsList(): Single<List<DatabaseContinentStats>>
 
     @Query("select * from DatabaseCountryHistoricalStats where countryName = :name")
@@ -40,7 +40,15 @@ interface StatsDao{
 }
 
 
-@Database(entities = [], version = 1)
-abstract class CovidDatabase : RoomDatabase(){
+@Database(
+    entities = [
+        DatabaseGlobalStats::class,
+        DatabaseContinentStats::class,
+        DatabaseContinentCountry::class,
+        DatabaseCountryHistoricalStats::class
+    ],
+    version = 1
+)
+abstract class CovidDatabase : RoomDatabase() {
     abstract val statsDao: StatsDao
 }

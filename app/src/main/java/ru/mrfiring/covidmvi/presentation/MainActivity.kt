@@ -13,10 +13,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var binder: MainActivityBinder
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,20 +21,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.btnLoad.setOnClickListener {
-//            onNext(UiEvent.ButtonClicked)
-//        }
-
-        binder.setup(this)
     }
 
-//    override fun accept(t: ViewModel) {
-//        with(binding){
-//            confirmedText.text = t.globalStats.totalConfirmed.toString()
-//            deathsText.text = t.globalStats.totalDeaths.toString()
-//            recoveredText.text = t.globalStats.totalRecovered.toString()
-//            btnLoad.visibility = if(t.isLoading) View.GONE else View.VISIBLE
-//            progressBar.visibility = if(t.isLoading) View.VISIBLE else View.GONE
-//        }
-//    }
 }
