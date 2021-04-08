@@ -1,6 +1,7 @@
 package ru.mrfiring.covidmvi.presentation.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,18 @@ class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
     override fun accept(t: ViewModel?) {
         t?.let {
             binding.apply {
+                //cases
                 mainTotalCases.text = it.globalStats.cases.toString()
+                mainTodayCases.text = it.globalStats.todayCases.toString()
+
+                //recovered
+                mainTotalRecovered.text = it.globalStats.recovered.toString()
+                mainTodayRecovered.text = it.globalStats.todayRecovered.toString()
+
+                //deaths
+                mainTotalDeaths.text = it.globalStats.deaths.toString()
+                mainTodayDeaths.text = it.globalStats.todayDeaths.toString()
+
                 mainProgressBar.visibility = if(it.isLoading) View.VISIBLE else View.GONE
             }
         }

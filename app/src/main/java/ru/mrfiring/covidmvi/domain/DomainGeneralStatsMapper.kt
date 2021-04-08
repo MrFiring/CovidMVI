@@ -10,3 +10,14 @@ fun DomainContinentStats.asDomainGeneralStats(): DomainGeneralStats =
         deaths,
         todayDeaths
     )
+
+fun DomainGlobalStats.asDomainGeneralStats(): DomainGeneralStats =
+    DomainGeneralStats(
+        name = "global",
+        cases,
+        todayCases,
+        recovered,
+        todayRecovered,
+        deaths,
+        todayDeaths
+    )
