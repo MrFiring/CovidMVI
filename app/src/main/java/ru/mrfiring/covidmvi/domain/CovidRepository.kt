@@ -7,4 +7,6 @@ interface CovidRepository {
     fun fetchGlobalStats(): Single<DomainGlobalStats>
     fun getGlobalStatsFromCache(): Single<DomainGlobalStats>
 
+    fun getContinentStatsFromCache(): Single<List<DomainContinentStats>>
+
 }

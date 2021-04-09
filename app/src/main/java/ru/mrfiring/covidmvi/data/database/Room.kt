@@ -18,8 +18,8 @@ interface StatsDao {
     @Query("select * from DatabaseCountryHistoricalStats where countryName = :name")
     fun getContinentHistoricalStatsByName(name: String): Single<DatabaseCountryHistoricalStats>
 
-    @Query("select * from DatabaseContinentCountry")
-    fun getContinentCountryList(): Single<List<DatabaseContinentCountry>>
+    @Query("select * from DatabaseContinentCountry where continentName =:continent")
+    fun getContinentCountryList(continent: String): Single<List<DatabaseContinentCountry>>
 
     //end get queries
 
