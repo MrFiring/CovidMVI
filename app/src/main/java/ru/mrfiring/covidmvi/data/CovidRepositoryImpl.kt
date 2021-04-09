@@ -45,14 +45,13 @@ class CovidRepositoryImpl @Inject constructor(
             .flatMapObservable {
                 Observable.fromIterable(it)
             }
-            .flatMap { dbStats ->
+            .flatMapSingle { dbStats ->
                 statsDao.getContinentCountryList(dbStats.continentName)
                     .map { dbCountryList ->
                         dbStats.asDomainObject(
                             dbCountryList.map { it.countryName }
                         )
                     }
-                    .toObservable()
             }
             .toList()
     }
