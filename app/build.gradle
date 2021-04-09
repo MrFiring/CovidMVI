@@ -83,4 +83,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$version_rxjava"
     implementation "io.reactivex.rxjava2:rxandroid:$version_rxandroid"
 
+    //Joda time
+    implementation "joda-time:joda-time:$version_joda"
 }
