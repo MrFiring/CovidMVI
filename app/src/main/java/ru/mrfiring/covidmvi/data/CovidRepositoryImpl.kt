@@ -1,9 +1,11 @@
 package ru.mrfiring.covidmvi.data
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import ru.mrfiring.covidmvi.data.database.StatsDao
+import ru.mrfiring.covidmvi.data.mappers.asDatabaseContinentCountryList
 import ru.mrfiring.covidmvi.data.mappers.asDatabaseObject
 import ru.mrfiring.covidmvi.data.mappers.asDomainObject
 import ru.mrfiring.covidmvi.data.network.CovidService
@@ -36,6 +38,30 @@ class CovidRepositoryImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .map {
                 it.asDomainObject()
+            }
+    }
+
+    override fun fetchContinentStats(sortBy: String): Completable {
+        return covidService.getStatsByContinents(sortBy)
+            .subscribeOn(Schedulers.io())
+            .flatMapCompletable { networkContinentList ->
+                Completable.mergeArray(
+                    statsDao.insertAllContinentStats(
+                        networkContinentList.map {
+                            it.asDatabaseObject()
+                        }
+                    ),
+
+                    Observable.fromIterable(networkContinentList)
+                        .flatMapCompletable {
+                            statsDao.insertAllContinentCountry(
+                                it.countriesList.asDatabaseContinentCountryList(
+                                    continent = it.continentName
+                                )
+                            )
+                        }
+
+                    )
             }
     }
 

@@ -31,10 +31,10 @@ interface StatsDao {
     fun insertAllContinentStats(items: List<DatabaseContinentStats>): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCountryHistoricalStats(items: List<DatabaseCountryHistoricalStats>)
+    fun insertAllCountryHistoricalStats(items: List<DatabaseCountryHistoricalStats>) : Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllContinentCountry(items: DatabaseContinentCountry)
+    fun insertAllContinentCountry(items: List<DatabaseContinentCountry>) : Completable
     //end insert queries
 
 }

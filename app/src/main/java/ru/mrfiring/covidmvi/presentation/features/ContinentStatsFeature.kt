@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import io.reactivex.Observable.just
 import ru.mrfiring.covidmvi.domain.ContinentStatsActorImpl
 import ru.mrfiring.covidmvi.domain.DomainGeneralStats
+import ru.mrfiring.covidmvi.domain.SortType
 import javax.inject.Inject
 
 class ContinentStatsFeature @Inject constructor(
@@ -24,6 +25,7 @@ class ContinentStatsFeature @Inject constructor(
 ) {
 
     data class State(
+        val sortType: SortType = SortType.TODAY_CASES,
         val isLoading: Boolean = false,
         val continentStats: List<DomainGeneralStats>? = null
     )
@@ -31,13 +33,16 @@ class ContinentStatsFeature @Inject constructor(
     sealed class Wish {
         object LoadNewContinentStats : Wish()
         object LoadCacheContinentStats : Wish()
+        data class SetSortType(val sortType: SortType): Wish()
     }
 
     sealed class Effect {
         object StartedLoading : Effect()
-        data class LoadedNewGlobalStats(val continentStats: List<DomainGeneralStats>) : Effect()
+        object LoadedNewGlobalStats : Effect()
         data class LoadedCacheGlobalStats(val continentStats: List<DomainGeneralStats>) : Effect()
         data class ErrorLoading(val throwable: Throwable) : Effect()
+
+        data class SetSortTypeEffect(val sortType: SortType): Effect()
     }
 
     private class BootstrapperImpl : Bootstrapper<Wish> {
@@ -62,8 +67,7 @@ class ContinentStatsFeature @Inject constructor(
                 isLoading = true
             )
             is Effect.LoadedNewGlobalStats -> state.copy(
-                isLoading = false,
-                continentStats = effect.continentStats
+                isLoading = false
             )
             is Effect.LoadedCacheGlobalStats -> state.copy(
                 isLoading = false,
@@ -71,6 +75,10 @@ class ContinentStatsFeature @Inject constructor(
             )
             is Effect.ErrorLoading -> state.copy(
                 isLoading = false
+            )
+
+            is Effect.SetSortTypeEffect -> state.copy(
+                sortType = effect.sortType
             )
         }
     }

@@ -15,11 +15,18 @@ class ContinentStatsActorImpl @Inject constructor(
         wish: ContinentStatsFeature.Wish
     ): Observable<ContinentStatsFeature.Effect> = when (wish) {
         is ContinentStatsFeature.Wish.LoadNewContinentStats -> {
-            just(
-                ContinentStatsFeature.Effect.ErrorLoading(
-                    NotImplementedError("Not implemented.")
-                )
-            )
+            repository.fetchContinentStats(state.sortType.str)
+                .observeOn(AndroidSchedulers.mainThread())
+                .startWith(just(ContinentStatsFeature.Effect.StartedLoading))
+                .flatMap {
+                    just(
+                        ContinentStatsFeature.Effect.LoadedNewGlobalStats
+                                as ContinentStatsFeature.Effect
+                    )
+                }
+                .onErrorReturn {
+                    ContinentStatsFeature.Effect.ErrorLoading(it)
+                }
         }
         is ContinentStatsFeature.Wish.LoadCacheContinentStats -> {
             repository.getContinentStatsFromCache()
@@ -33,6 +40,14 @@ class ContinentStatsActorImpl @Inject constructor(
                 }
                 .startWith(just(ContinentStatsFeature.Effect.StartedLoading))
                 .onErrorReturn { ContinentStatsFeature.Effect.ErrorLoading(it) }
+        }
+
+        is ContinentStatsFeature.Wish.SetSortType -> {
+            just(
+                ContinentStatsFeature.Effect.SetSortTypeEffect(
+                    wish.sortType
+                )
+            )
         }
     }
 }
