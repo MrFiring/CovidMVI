@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.mrfiring.covidmvi.presentation.features.ContinentStatsFeature
 import javax.inject.Inject
 
-class ContinentStatsActor @Inject constructor(
+class ContinentStatsActorImpl @Inject constructor(
     private val repository: CovidRepository
 ) : Actor<ContinentStatsFeature.State, ContinentStatsFeature.Wish, ContinentStatsFeature.Effect> {
     override fun invoke(

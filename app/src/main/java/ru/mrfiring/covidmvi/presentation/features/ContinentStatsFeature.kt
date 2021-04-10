@@ -6,12 +6,12 @@ import com.badoo.mvicore.element.Reducer
 import com.badoo.mvicore.feature.ActorReducerFeature
 import io.reactivex.Observable
 import io.reactivex.Observable.just
-import ru.mrfiring.covidmvi.domain.ContinentStatsActor
+import ru.mrfiring.covidmvi.domain.ContinentStatsActorImpl
 import ru.mrfiring.covidmvi.domain.DomainGeneralStats
 import javax.inject.Inject
 
 class ContinentStatsFeature @Inject constructor(
-    actor: ContinentStatsActor
+    actor: ContinentStatsActorImpl
 ) : ActorReducerFeature<
         ContinentStatsFeature.Wish,
         ContinentStatsFeature.Effect,
