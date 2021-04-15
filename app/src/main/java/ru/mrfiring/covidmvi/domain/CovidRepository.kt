@@ -5,7 +5,7 @@ import io.reactivex.Single
 
 interface CovidRepository {
 
-    fun fetchGlobalStats(): Single<DomainGlobalStats>
+    fun fetchGlobalStats(): Completable
     fun getGlobalStatsFromCache(): Single<DomainGlobalStats>
 
     fun fetchContinentStats(sortBy: String): Completable

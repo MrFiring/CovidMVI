@@ -18,7 +18,7 @@ class CovidRepositoryImpl @Inject constructor(
     private val covidService: CovidService,
     private val statsDao: StatsDao
 ) : CovidRepository {
-    override fun fetchGlobalStats(): Single<DomainGlobalStats> {
+    override fun fetchGlobalStats(): Completable {
         return covidService.getGlobalStats()
             .subscribeOn(Schedulers.io())
             .map {
@@ -27,10 +27,6 @@ class CovidRepositoryImpl @Inject constructor(
             .flatMapCompletable {
                 statsDao.insertGlobalStats(it)
             }
-            .andThen(statsDao.getGlobalStats().map {
-                it.asDomainObject()
-            })
-
     }
 
     override fun getGlobalStatsFromCache(): Single<DomainGlobalStats> {
