@@ -1,15 +1,17 @@
 package ru.mrfiring.covidmvi.presentation.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.Completable
 import io.reactivex.functions.Consumer
-import ru.mrfiring.covidmvi.R
+import io.reactivex.schedulers.Schedulers
 import ru.mrfiring.covidmvi.databinding.FragmentMainBinding
+import ru.mrfiring.covidmvi.domain.asDomainGeneralStats
 import ru.mrfiring.covidmvi.presentation.event.UiEvent
+import ru.mrfiring.covidmvi.presentation.ui.reusable.GeneralStatsRecyclerViewAdapter
 import ru.mrfiring.covidmvi.presentation.util.ObservableSourceFragment
 import ru.mrfiring.covidmvi.presentation.viewmodel.ViewModel
 import javax.inject.Inject
@@ -23,6 +25,8 @@ class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
 
     private lateinit var binding: FragmentMainBinding
 
+    private lateinit var adapter: GeneralStatsRecyclerViewAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,26 +36,43 @@ class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
         val binder = mainBinderFactory.create(this)
         binder.setup(this)
 
+        adapter = GeneralStatsRecyclerViewAdapter({})
+        binding.mainContinentsList.adapter = adapter
+
         return binding.root
     }
 
 
     override fun accept(t: ViewModel?) {
-        t?.let {
+        t?.let { viewModel ->
             binding.apply {
+                mainProgressBar.visibility = if (viewModel.isLoading) View.VISIBLE else View.GONE
                 //cases
-                mainTotalCases.text = it.globalStats.cases.toString()
-                mainTodayCases.text = it.globalStats.todayCases.toString()
+                viewModel.globalStats?.let {
+                    mainTotalCases.text = it.cases.toString()
+                    mainTodayCases.text = it.todayCases.toString()
 
-                //recovered
-                mainTotalRecovered.text = it.globalStats.recovered.toString()
-                mainTodayRecovered.text = it.globalStats.todayRecovered.toString()
+                    //recovered
+                    mainTotalRecovered.text = it.recovered.toString()
+                    mainTodayRecovered.text = it.todayRecovered.toString()
 
-                //deaths
-                mainTotalDeaths.text = it.globalStats.deaths.toString()
-                mainTodayDeaths.text = it.globalStats.todayDeaths.toString()
+                    //deaths
+                    mainTotalDeaths.text = it.deaths.toString()
+                    mainTodayDeaths.text = it.todayDeaths.toString()
+                }
 
-                mainProgressBar.visibility = if(it.isLoading) View.VISIBLE else View.GONE
+            }
+            //recycler view setup
+            t.continentStatsList?.let {
+                Completable.fromAction {
+                    adapter.submitList(
+                        t.continentStatsList.map {
+                            it.asDomainGeneralStats()
+                        }
+                    )
+                }.subscribeOn(
+                    Schedulers.computation()
+                ).subscribe()
             }
         }
     }
