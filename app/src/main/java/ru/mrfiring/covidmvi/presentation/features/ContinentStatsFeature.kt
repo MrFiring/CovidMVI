@@ -3,23 +3,26 @@ package ru.mrfiring.covidmvi.presentation.features
 import com.badoo.mvicore.element.Bootstrapper
 import com.badoo.mvicore.element.PostProcessor
 import com.badoo.mvicore.element.Reducer
-import com.badoo.mvicore.feature.ActorReducerFeature
+import com.badoo.mvicore.feature.BaseFeature
 import io.reactivex.Observable
 import io.reactivex.Observable.just
 import ru.mrfiring.covidmvi.domain.ContinentStatsActorImpl
-import ru.mrfiring.covidmvi.domain.DomainGeneralStats
+import ru.mrfiring.covidmvi.domain.DomainContinentStats
 import ru.mrfiring.covidmvi.domain.SortType
 import javax.inject.Inject
 
 class ContinentStatsFeature @Inject constructor(
     actor: ContinentStatsActorImpl
-) : ActorReducerFeature<
+) : BaseFeature<
+        ContinentStatsFeature.Wish,
         ContinentStatsFeature.Wish,
         ContinentStatsFeature.Effect,
         ContinentStatsFeature.State,
         Nothing>(
     initialState = State(),
     bootstrapper = BootstrapperImpl(),
+    postProcessor = PostProcessorImpl(),
+    wishToAction = {it},
     actor = actor,
     reducer = ReducerImpl(),
 ) {
@@ -27,7 +30,7 @@ class ContinentStatsFeature @Inject constructor(
     data class State(
         val sortType: SortType = SortType.TODAY_CASES,
         val isLoading: Boolean = false,
-        val continentStats: List<DomainGeneralStats>? = null
+        val continentStats: List<DomainContinentStats>? = null
     )
 
     sealed class Wish {
@@ -39,7 +42,7 @@ class ContinentStatsFeature @Inject constructor(
     sealed class Effect {
         object StartedLoading : Effect()
         object LoadedNewGlobalStats : Effect()
-        data class LoadedCacheGlobalStats(val continentStats: List<DomainGeneralStats>) : Effect()
+        data class LoadedCacheGlobalStats(val continentStats: List<DomainContinentStats>) : Effect()
         data class ErrorLoading(val throwable: Throwable) : Effect()
 
         data class SetSortTypeEffect(val sortType: SortType): Effect()

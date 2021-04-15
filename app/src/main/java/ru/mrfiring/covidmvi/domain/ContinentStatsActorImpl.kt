@@ -33,9 +33,7 @@ class ContinentStatsActorImpl @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable {
                     just(ContinentStatsFeature.Effect.LoadedCacheGlobalStats(
-                        it.map { stats ->
-                            stats.asDomainGeneralStats()
-                        }
+                        it
                     ) as ContinentStatsFeature.Effect)
                 }
                 .startWith(just(ContinentStatsFeature.Effect.StartedLoading))
