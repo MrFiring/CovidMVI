@@ -2,11 +2,33 @@ package ru.mrfiring.covidmvi.data.network
 
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import ru.mrfiring.covidmvi.domain.SortType
 
-const val BASE_URL = "https://api.coronatracker.com/"
+const val BASE_URL = "https://disease.sh/v3/"
 
 interface CovidService {
-    @GET("v3/stats/worldometer/global")
-    fun getGlobalStats(): Single<GlobalStats>
+    @GET("covid-19/all")
+    fun getGlobalStats(
+        @Query("yesterday") showYesterday: Boolean = false,
+        @Query("twoDaysAgo") showTwoDaysAgo: Boolean = false,
+        @Query("allowNull") allowNullValues: Boolean = false
+    ): Single<GlobalStats>
+
+
+    @GET("covid-19/continents")
+    fun getStatsByContinents(
+        @Query("sort") sortBy: String,
+        @Query("yesterday") showYesterday: Boolean = false,
+        @Query("twoDaysAgo") showTwoDaysAgo: Boolean = false,
+        @Query("allowNull") allowNullValues: Boolean = false
+    ): Single<List<ContinentStats>>
+
+    @GET("covid-19/historical/{country}")
+    fun getHistoricalStatsByCountryName(
+        @Path("country", encoded = true) countryName: String,
+        @Query("lastDays") lastDays: Int = 30
+    ): Single<CountryHistoricalStats>
 
 }

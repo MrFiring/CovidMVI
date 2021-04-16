@@ -1,11 +1,12 @@
-package ru.mrfiring.covidmvi.util
+package ru.mrfiring.covidmvi.presentation.util
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import io.reactivex.ObservableSource
 import io.reactivex.Observer
 import io.reactivex.subjects.PublishSubject
 
-abstract class ObservableSourceActivity<T> :  AppCompatActivity(), ObservableSource<T> {
+abstract class ObservableSourceFragment<T> :  Fragment(), ObservableSource<T> {
     private val source = PublishSubject.create<T>()
 
     protected fun onNext(t: T){

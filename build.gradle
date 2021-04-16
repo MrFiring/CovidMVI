@@ -13,6 +13,7 @@ buildscript {
         version_rxjava = '2.2.21'
         version_rxandroid = '2.1.1'
         version_adapter_rxjava = '2.9.0'
+        version_joda = '2.10.10'
     }
 
     repositories {

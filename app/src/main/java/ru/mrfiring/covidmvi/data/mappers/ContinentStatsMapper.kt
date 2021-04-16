@@ -1,12 +1,12 @@
 package ru.mrfiring.covidmvi.data.mappers
 
-import ru.mrfiring.covidmvi.data.database.DatabaseGlobalStats
-import ru.mrfiring.covidmvi.data.network.GlobalStats
-import ru.mrfiring.covidmvi.domain.DomainGlobalStats
+import ru.mrfiring.covidmvi.data.database.DatabaseContinentStats
+import ru.mrfiring.covidmvi.data.network.ContinentStats
+import ru.mrfiring.covidmvi.domain.DomainContinentStats
 
-fun GlobalStats.asDatabaseObject(): DatabaseGlobalStats =
-    DatabaseGlobalStats(
-        lastUpdate,
+fun ContinentStats.asDatabaseObject(): DatabaseContinentStats =
+    DatabaseContinentStats(
+        continentName,
         cases,
         todayCases,
         deaths,
@@ -23,12 +23,12 @@ fun GlobalStats.asDatabaseObject(): DatabaseGlobalStats =
         activePerOneMillion,
         recoveredPerOneMillion,
         criticalPerOneMillion,
-        affectedCountries
+        lastUpdate
     )
 
-fun DatabaseGlobalStats.asDomainObject(): DomainGlobalStats =
-    DomainGlobalStats(
-        lastUpdate,
+fun DatabaseContinentStats.asDomainObject(countries: List<String>): DomainContinentStats =
+    DomainContinentStats(
+        continentName,
         cases,
         todayCases,
         deaths,
@@ -45,5 +45,6 @@ fun DatabaseGlobalStats.asDomainObject(): DomainGlobalStats =
         activePerOneMillion,
         recoveredPerOneMillion,
         criticalPerOneMillion,
-        affectedCountries
+        lastUpdate,
+        countries
     )
