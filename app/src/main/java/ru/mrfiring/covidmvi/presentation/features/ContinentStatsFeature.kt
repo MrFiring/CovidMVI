@@ -59,6 +59,9 @@ class ContinentStatsFeature @Inject constructor(
                     Wish.LoadNewContinentStats
                 } else null
             }
+            is Effect.LoadedNewGlobalStats -> {
+                Wish.LoadCacheContinentStats
+            }
 
             else -> null
         }
@@ -70,7 +73,7 @@ class ContinentStatsFeature @Inject constructor(
                 isLoading = true
             )
             is Effect.LoadedNewGlobalStats -> state.copy(
-                isLoading = false
+                isLoading = true
             )
             is Effect.LoadedCacheGlobalStats -> state.copy(
                 isLoading = false,
