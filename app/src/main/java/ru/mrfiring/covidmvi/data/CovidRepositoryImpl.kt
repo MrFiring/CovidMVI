@@ -29,12 +29,18 @@ class CovidRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getGlobalStatsFromCache(): Single<DomainGlobalStats> {
-        return statsDao.getGlobalStats()
+    override fun getGlobalStatsLatestFromCache(): Single<DomainGlobalStats> {
+        return statsDao.getGlobalStatsList()
             .subscribeOn(Schedulers.io())
-            .map {
-                it.asDomainObject()
+            .map { list ->
+                 list.map {
+                     it.asDomainObject()
+                 }
             }
+            .flatMap {
+                Single.just(it.firstOrNull() ?: DomainGlobalStats())
+            }
+
     }
 
     override fun fetchContinentStats(sortBy: String): Completable {

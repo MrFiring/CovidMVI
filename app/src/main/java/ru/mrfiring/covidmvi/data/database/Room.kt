@@ -9,8 +9,8 @@ import io.reactivex.Single
 interface StatsDao {
 
     //Get queries
-    @Query("select * from DatabaseGlobalStats")
-    fun getGlobalStats(): Single<DatabaseGlobalStats>
+    @Query("select * from DatabaseGlobalStats limit 1")
+    fun getGlobalStatsList(): Single<List<DatabaseGlobalStats>>
 
     @Query("select * from DatabaseContinentStats")
     fun getContinentStatsList(): Single<List<DatabaseContinentStats>>
