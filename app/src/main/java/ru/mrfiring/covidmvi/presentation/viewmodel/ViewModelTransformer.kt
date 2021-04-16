@@ -1,29 +1,21 @@
 package ru.mrfiring.covidmvi.presentation.viewmodel
 
-import ru.mrfiring.covidmvi.domain.DomainGlobalStats
-import ru.mrfiring.covidmvi.presentation.features.GlobalStatsCacheFeature
+import ru.mrfiring.covidmvi.presentation.features.ContinentStatsFeature
 import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
 
-class ViewModelTransformer1: (GlobalStatsFeature.State) -> ViewModel {
-    override fun invoke(state: GlobalStatsFeature.State): ViewModel = ViewModel(
-        globalStats = state.globalStats ?: DomainGlobalStats(
-            0, 0, 0 ,0 ,
-        0, 0, 0, 0,
-            0,0.0,0.0,0,
-            0.0,0,0.0,
-            0.0,0.0,0),
-        isLoading = state.isLoading
-    )
-}
+class ViewModelPairedTransformer: (
+    Pair<ContinentStatsFeature.State, GlobalStatsFeature.State>
+) -> ViewModel {
+    override fun invoke(
+        pair: Pair<ContinentStatsFeature.State, GlobalStatsFeature.State>
+    ): ViewModel {
+        val (continentState, globalState) = pair
 
-class ViewModelTransformer2: (GlobalStatsCacheFeature.State) -> ViewModel {
-    override fun invoke(state: GlobalStatsCacheFeature.State): ViewModel = ViewModel(
-        globalStats = state.globalStats ?: DomainGlobalStats(
-            0, 0, 0 ,0 ,
-            0, 0, 0, 0,
-            0,0.0,0.0,0,
-            0.0,0,0.0,
-            0.0,0.0,0),
-        isLoading = state.isLoading
-    )
+        return ViewModel(
+            globalState.globalStats,
+            continentState.continentStats,
+            continentState.isLoading || globalState.isLoading
+        )
+
+    }
 }
