@@ -52,9 +52,12 @@ class GlobalStatsFeature @Inject constructor(
     private class PostProcessorImpl : PostProcessor<Wish, Effect, State> {
         override fun invoke(action: Wish, effect: Effect, state: State): Wish? = when (effect) {
             is Effect.LoadedGlobalStats -> {
-                if (state.globalStats == null) {
+                if (state.globalStats?.lastUpdate == 0L) {
                     Wish.LoadNewGlobalStats
                 } else null
+            }
+            is Effect.LoadedNewGlobalStats ->{
+                Wish.LoadGlobalStatsFromCache
             }
 
             else -> null

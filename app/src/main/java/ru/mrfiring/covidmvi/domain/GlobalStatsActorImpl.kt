@@ -22,7 +22,7 @@ class GlobalStatsActorImpl @Inject constructor(
                 .onErrorReturn {
                     GlobalStatsFeature.Effect.ErrorLoading(it)
                 }
-            is GlobalStatsFeature.Wish.LoadGlobalStatsFromCache -> repository.getGlobalStatsFromCache()
+            is GlobalStatsFeature.Wish.LoadGlobalStatsFromCache -> repository.getGlobalStatsLatestFromCache()
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapObservable {
                     just(GlobalStatsFeature.Effect.LoadedGlobalStats(it) as GlobalStatsFeature.Effect)
