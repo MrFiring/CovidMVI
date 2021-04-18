@@ -64,3 +64,14 @@ data class DatabaseCountryHistoricalStats(
     val deaths: Long,
     val recovered: Long
 )
+
+@Entity
+data class DatabaseGlobalHistoricalStats(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val resolution: String,
+    val date: String,
+    val cases: Long,
+    val deaths: Long,
+    val recovered: Long
+)
