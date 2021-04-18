@@ -7,11 +7,10 @@ import io.reactivex.schedulers.Schedulers
 import ru.mrfiring.covidmvi.data.database.StatsDao
 import ru.mrfiring.covidmvi.data.mappers.asDatabaseContinentCountryList
 import ru.mrfiring.covidmvi.data.mappers.asDatabaseObject
+import ru.mrfiring.covidmvi.data.mappers.asDatabaseObjectList
 import ru.mrfiring.covidmvi.data.mappers.asDomainObject
 import ru.mrfiring.covidmvi.data.network.CovidService
-import ru.mrfiring.covidmvi.domain.CovidRepository
-import ru.mrfiring.covidmvi.domain.DomainContinentStats
-import ru.mrfiring.covidmvi.domain.DomainGlobalStats
+import ru.mrfiring.covidmvi.domain.*
 import javax.inject.Inject
 
 class CovidRepositoryImpl @Inject constructor(
@@ -82,5 +81,23 @@ class CovidRepositoryImpl @Inject constructor(
                     }
             }
             .toList()
+    }
+
+
+    override fun fetchGlobalHistoricalStats(resolution: ResolutionType): Completable {
+        return covidService.getGlobalHistoricalStats(resolution.str)
+            .map {
+                it.asDatabaseObjectList(resolution.str)
+            }
+            .flatMapCompletable {
+                statsDao.insertAllGlobalHistoricalStats(it)
+            }
+    }
+
+    override fun getGlobalHistoricalStatsFromCache(resolution: ResolutionType): Single<DomainGlobalHistoricalStats> {
+        return statsDao.getGlobalHistoricalStatsByResolution(resolution.str)
+            .map {
+                it.asDomainObject()
+            }
     }
 }

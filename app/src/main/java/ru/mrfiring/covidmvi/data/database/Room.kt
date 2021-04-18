@@ -12,7 +12,7 @@ interface StatsDao {
     @Query("select * from DatabaseGlobalStats limit 1")
     fun getGlobalStatsList(): Single<List<DatabaseGlobalStats>>
 
-    @Query("select * from DatabaseGlobalHistoricalStats")
+    @Query("select * from DatabaseGlobalHistoricalStats where resolution = :resolution")
     fun getGlobalHistoricalStatsByResolution(
         resolution: String
     ): Single<List<DatabaseGlobalHistoricalStats>>
