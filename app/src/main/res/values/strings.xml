@@ -10,5 +10,7 @@
     <string name="world">World</string>
     <string name="continents">Continents</string>
     <string name="filter">Filter</string>
+    <string name="today">Today</string>
+    <string name="per_one_million">Per one million</string>
 
 </resources>
