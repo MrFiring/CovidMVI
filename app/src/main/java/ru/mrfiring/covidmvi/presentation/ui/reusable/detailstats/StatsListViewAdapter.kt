@@ -7,10 +7,8 @@ import android.widget.BaseAdapter
 private const val VIEW_TYPE_SIMPLE = 0
 private const val VIEW_TYPE_DETAILED = 1
 
-
-class StatsListViewAdapter(
-    private val items: List<StatsListDataItem>
-) : BaseAdapter() {
+class StatsListViewAdapter : BaseAdapter() {
+    private var items: List<StatsListDataItem> = emptyList()
 
     override fun getCount(): Int = items.size
 
@@ -43,5 +41,11 @@ class StatsListViewAdapter(
             }
 
         }
+
+
+    fun submitList(items: List<StatsListDataItem>){
+        this.items = items
+        notifyDataSetChanged()
+    }
 
 }
