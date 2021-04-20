@@ -13,4 +13,12 @@
     <string name="today">Today</string>
     <string name="per_one_million">Per one million</string>
 
+<!--    Layout Graph with buttons-->
+    <string name="title_two_weeks">2W</string>
+    <string name="title_one_month">1M</string>
+    <string name="title_six_months">6M</string>
+    <string name="title_one_year">1Y</string>
+    <string name="title_all">ALL</string>
+<!--    END Layout Graph with buttons-->
+
 </resources>
