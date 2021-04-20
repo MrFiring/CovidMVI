@@ -8,7 +8,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import ru.mrfiring.covidmvi.presentation.features.ContinentStatsFeature
 import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
-import ru.mrfiring.covidmvi.presentation.viewmodel.ViewModelPairedTransformer
+import ru.mrfiring.covidmvi.presentation.viewmodel.MainViewModelPairedTransformer
 import ru.mrfiring.covidmvi.utils.combineLatest
 
 class MainFragmentBinder @AssistedInject constructor(
@@ -21,7 +21,7 @@ class MainFragmentBinder @AssistedInject constructor(
             combineLatest(
                 continentStatsFeature,
                 globalStatsFeature
-            ) to view using ViewModelPairedTransformer()
+            ) to view using MainViewModelPairedTransformer()
         )
     }
 

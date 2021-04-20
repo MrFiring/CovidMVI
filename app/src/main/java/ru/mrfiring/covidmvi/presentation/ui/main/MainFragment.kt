@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
+class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel.Main> {
 
     @Inject
     lateinit var mainBinderFactory: MainFragmentBinder.MainFragmentBinderFactory
@@ -43,7 +43,7 @@ class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel> {
     }
 
 
-    override fun accept(t: ViewModel?) {
+    override fun accept(t: ViewModel.Main?) {
         t?.let { viewModel ->
             binding.apply {
                 mainProgressBar.visibility = if (viewModel.isLoading) View.VISIBLE else View.GONE
