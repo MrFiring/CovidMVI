@@ -1,4 +1,4 @@
-package ru.mrfiring.covidmvi.presentation.ui.reusable
+package ru.mrfiring.covidmvi.presentation.ui.reusable.detailstats
 
 sealed class StatsListDataItem {
     abstract val titleRes: Int

@@ -1,4 +1,4 @@
-package ru.mrfiring.covidmvi.presentation.ui.reusable
+package ru.mrfiring.covidmvi.presentation.ui.reusable.detailstats
 
 import android.view.View
 import android.view.ViewGroup

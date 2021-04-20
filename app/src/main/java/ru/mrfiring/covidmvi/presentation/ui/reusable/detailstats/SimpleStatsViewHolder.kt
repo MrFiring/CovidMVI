@@ -1,4 +1,4 @@
-package ru.mrfiring.covidmvi.presentation.ui.reusable
+package ru.mrfiring.covidmvi.presentation.ui.reusable.detailstats
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,7 +18,7 @@ class SimpleStatsViewHolder(
     }
 
     companion object{
-        fun from(parent: ViewGroup): SimpleStatsViewHolder{
+        fun from(parent: ViewGroup): SimpleStatsViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemListSimpleStatsBinding.inflate(inflater, parent, false)
             return SimpleStatsViewHolder(binding)
