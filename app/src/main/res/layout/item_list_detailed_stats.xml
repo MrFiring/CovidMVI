@@ -47,7 +47,7 @@
         tools:text="Per one million" />
 
     <TextView
-        android:id="@+id/detailedToday"
+        android:id="@+id/detailedTodayValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -58,12 +58,12 @@
         tools:text="288000" />
 
     <TextView
-        android:id="@+id/detailedMillion"
+        android:id="@+id/detailedMillionValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@+id/detailedMillionText"
-        app:layout_constraintEnd_toEndOf="@+id/detailedToday"
+        app:layout_constraintEnd_toEndOf="@+id/detailedTodayValue"
         app:layout_constraintStart_toStartOf="@+id/detailedTitleValue"
         tools:text="15000" />
 </androidx.constraintlayout.widget.ConstraintLayout>
