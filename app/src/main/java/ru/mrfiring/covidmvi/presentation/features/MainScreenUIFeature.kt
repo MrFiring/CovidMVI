@@ -2,8 +2,9 @@ package ru.mrfiring.covidmvi.presentation.features
 
 import com.badoo.mvicore.element.Reducer
 import com.badoo.mvicore.feature.ReducerFeature
+import javax.inject.Inject
 
-class MainScreenUIFeature :
+class MainScreenUIFeature @Inject constructor() :
     ReducerFeature<
             MainScreenUIFeature.Wish,
             MainScreenUIFeature.State,

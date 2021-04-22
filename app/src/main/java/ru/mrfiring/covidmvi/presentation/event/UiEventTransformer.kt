@@ -1,9 +1,9 @@
 package ru.mrfiring.covidmvi.presentation.event
 
-import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
+import ru.mrfiring.covidmvi.presentation.features.MainScreenUIFeature
 
-class UiEventTransformer: (UiEvent) -> GlobalStatsFeature.Wish? {
-    override fun invoke(event: UiEvent): GlobalStatsFeature.Wish? = when(event){
-        is UiEvent.ButtonClicked -> GlobalStatsFeature.Wish.LoadNewGlobalStats
+class UiEventTransformer: (UiEvent) -> MainScreenUIFeature.Wish? {
+    override fun invoke(event: UiEvent): MainScreenUIFeature.Wish? = when(event){
+        is UiEvent.ButtonClicked -> MainScreenUIFeature.Wish.NavigateToGlobalDetails
     }
 }

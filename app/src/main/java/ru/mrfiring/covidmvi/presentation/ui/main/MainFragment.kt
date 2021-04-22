@@ -39,6 +39,10 @@ class MainFragment : ObservableSourceFragment<UiEvent>(), Consumer<ViewModel.Mai
         adapter = GeneralStatsRecyclerViewAdapter({})
         binding.mainContinentsList.adapter = adapter
 
+        binding.mainTodayRecovered.setOnClickListener {
+            onNext(UiEvent.ButtonClicked)
+        }
+
         return binding.root
     }
 
