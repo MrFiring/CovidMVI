@@ -86,6 +86,7 @@ class CovidRepositoryImpl @Inject constructor(
 
     override fun fetchGlobalHistoricalStats(resolution: ResolutionType): Completable {
         return covidService.getGlobalHistoricalStats(resolution.str)
+            .subscribeOn(Schedulers.io())
             .map {
                 it.asDatabaseObjectList(resolution.str)
             }
@@ -96,6 +97,7 @@ class CovidRepositoryImpl @Inject constructor(
 
     override fun getGlobalHistoricalStatsFromCache(resolution: ResolutionType): Single<DomainGlobalHistoricalStats> {
         return statsDao.getGlobalHistoricalStatsByResolution(resolution.str)
+            .subscribeOn(Schedulers.io())
             .map {
                 it.asDomainObject()
             }
