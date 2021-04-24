@@ -12,6 +12,8 @@
     <string name="filter">Filter</string>
     <string name="today">Today</string>
     <string name="per_one_million">Per one million</string>
+    <string name="affected_countries">Affected countries</string>
+    <string name="tests">Tests</string>
 
 <!--    Layout Graph with buttons-->
     <string name="title_two_weeks">2W</string>

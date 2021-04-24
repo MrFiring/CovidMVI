@@ -1,6 +1,8 @@
-package ru.mrfiring.covidmvi.presentation.ui.reusable.detailstats
+package ru.mrfiring.covidmvi.presentation.ui.globaldetailscreen
 
+import ru.mrfiring.covidmvi.R
 import ru.mrfiring.covidmvi.domain.DomainGlobalStats
+import ru.mrfiring.covidmvi.presentation.ui.reusable.detailstats.StatsListDataItem
 
 internal fun DomainGlobalStats.asDataItemList(): List<StatsListDataItem>{
     val items = mutableListOf<StatsListDataItem>()
@@ -8,7 +10,7 @@ internal fun DomainGlobalStats.asDataItemList(): List<StatsListDataItem>{
     //Cases
     items.add(
         StatsListDataItem.Detailed.Full(
-            titleRes = 0,
+            titleRes = R.string.cases,
             titleValue = cases.toString(),
             todayValue = todayCases.toString(),
             perMillionValue = casesPerOneMillion.toString()
@@ -18,7 +20,7 @@ internal fun DomainGlobalStats.asDataItemList(): List<StatsListDataItem>{
     //Recovered
     items.add(
         StatsListDataItem.Detailed.Full(
-            titleRes = 0,
+            titleRes = R.string.recovered,
             titleValue = recovered.toString(),
             todayValue = todayRecovered.toString(),
             perMillionValue = recoveredPerOneMillion.toString()
@@ -28,7 +30,7 @@ internal fun DomainGlobalStats.asDataItemList(): List<StatsListDataItem>{
     //Deaths
     items.add(
         StatsListDataItem.Detailed.Full(
-            titleRes = 0,
+            titleRes = R.string.deaths,
             titleValue = deaths.toString(),
             todayValue = todayDeaths.toString(),
             perMillionValue = deathsPerOneMillion.toString()
@@ -38,7 +40,7 @@ internal fun DomainGlobalStats.asDataItemList(): List<StatsListDataItem>{
     //Tests
     items.add(
         StatsListDataItem.Detailed.WithNoToday(
-            titleRes = 0,
+            titleRes = R.string.tests,
             titleValue = tests.toString(),
             perMillionValue = testsPerOneMillion.toString()
         )
@@ -46,7 +48,7 @@ internal fun DomainGlobalStats.asDataItemList(): List<StatsListDataItem>{
 
     items.add(
         StatsListDataItem.Simple(
-            titleRes = 0,
+            titleRes = R.string.affected_countries,
             titleValue = affectedCountries.toString()
         )
     )
