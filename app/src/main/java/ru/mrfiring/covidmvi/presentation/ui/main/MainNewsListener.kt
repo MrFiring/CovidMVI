@@ -11,7 +11,9 @@ class MainNewsListener @Inject constructor(
     override fun accept(news: MainScreenUIFeature.News) {
         when (news) {
             MainScreenUIFeature.News.NavigateToGlobalDetails -> {
-                TODO("Call navigate")
+                navController.navigate(
+                    MainFragmentDirections.actionMainFragmentToGlobalDetailFragment()
+                )
             }
         }
     }

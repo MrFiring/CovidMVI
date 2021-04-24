@@ -9,5 +9,14 @@
         android:id="@+id/mainFragment"
         android:name="ru.mrfiring.covidmvi.presentation.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_globalDetailFragment"
+            app:destination="@id/globalDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/globalDetailFragment"
+        android:name="ru.mrfiring.covidmvi.presentation.ui.globaldetailscreen.GlobalDetailFragment"
+        android:label="fragment_global"
+        tools:layout="@layout/fragment_global" />
 </navigation>
