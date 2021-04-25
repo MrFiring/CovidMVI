@@ -6,6 +6,7 @@ import com.badoo.mvicore.android.AndroidBindings
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import ru.mrfiring.covidmvi.presentation.event.UiEventToGlobalHistoricalWishTransformer
 import ru.mrfiring.covidmvi.presentation.features.GlobalHistoricalStatsFeature
 import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
 import ru.mrfiring.covidmvi.presentation.viewmodel.GlobalDetailViewModelPairedTransformer
@@ -23,6 +24,11 @@ class GlobalDetailFragmentBinder @AssistedInject constructor(
                 globalStatsFeature,
                 globalHistoricalStatsFeature
             ) to view using GlobalDetailViewModelPairedTransformer()
+        )
+
+        binder.bind(
+            view to globalHistoricalStatsFeature
+                    using UiEventToGlobalHistoricalWishTransformer()
         )
     }
 
