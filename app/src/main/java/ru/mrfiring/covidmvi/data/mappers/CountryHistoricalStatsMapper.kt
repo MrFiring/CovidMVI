@@ -5,6 +5,7 @@ import ru.mrfiring.covidmvi.data.network.CountryHistoricalStats
 import ru.mrfiring.covidmvi.domain.DomainCountryHistoricalStats
 
 fun CountryHistoricalStats.asDatabaseObjectsList(
+    resolution: String
 ): List<DatabaseCountryHistoricalStats> {
     val list = mutableListOf<DatabaseCountryHistoricalStats>()
 
@@ -12,6 +13,7 @@ fun CountryHistoricalStats.asDatabaseObjectsList(
         list.add(
             DatabaseCountryHistoricalStats(
                 countryName = countryName,
+                resolution = resolution,
                 date = date,
                 cases = data.cases[date] ?: 0,
                 deaths = data.deaths[date] ?: 0,
