@@ -8,7 +8,7 @@ import ru.mrfiring.covidmvi.presentation.features.ContinentStatsFeature
 import javax.inject.Inject
 
 class ContinentStatsActorImpl @Inject constructor(
-    private val repository: CovidRepository
+    private val repository: ContinentStatsRepository
 ) : Actor<ContinentStatsFeature.State, ContinentStatsFeature.Wish, ContinentStatsFeature.Effect> {
     override fun invoke(
         state: ContinentStatsFeature.State,
