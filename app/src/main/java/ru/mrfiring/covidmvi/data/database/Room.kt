@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 
 @Dao
-interface StatsDao {
+interface GlobalStatsDao : ContinentStatsDao {
 
     //Get queries
     @Query("select * from DatabaseGlobalStats limit 1")
@@ -16,17 +16,7 @@ interface StatsDao {
     fun getGlobalHistoricalStatsByResolution(
         resolution: String
     ): Single<List<DatabaseGlobalHistoricalStats>>
-
-    @Query("select * from DatabaseContinentStats")
-    fun getContinentStatsList(): Single<List<DatabaseContinentStats>>
-
-    @Query("select * from DatabaseCountryHistoricalStats where countryName = :name")
-    fun getContinentHistoricalStatsByName(name: String): Single<DatabaseCountryHistoricalStats>
-
-    @Query("select * from DatabaseContinentCountry where continentName =:continent")
-    fun getContinentCountryList(continent: String): Single<List<DatabaseContinentCountry>>
-
-    //end get queries
+    //End get queries
 
     //Insert queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -35,18 +25,38 @@ interface StatsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllGlobalHistoricalStats(items: List<DatabaseGlobalHistoricalStats>): Completable
 
+    //End insert queries
+
+}
+
+@Dao
+interface ContinentStatsDao {
+    //Get queries
+    @Query("select * from DatabaseContinentStats")
+    fun getContinentStatsList(): Single<List<DatabaseContinentStats>>
+
+    @Query("select * from DatabaseContinentCountry where continentName =:continent")
+    fun getContinentCountryList(continent: String): Single<List<DatabaseContinentCountry>>
+    //End get queries
+
+    //Insert queries
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllContinentStats(items: List<DatabaseContinentStats>): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCountryHistoricalStats(items: List<DatabaseCountryHistoricalStats>): Completable
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllContinentCountry(items: List<DatabaseContinentCountry>): Completable
-    //end insert queries
-
+    //End insert queries
 }
 
+@Dao
+interface CountryStatsDao{
+
+    @Query("select * from DatabaseCountryHistoricalStats where countryName = :name")
+    fun getCountryHistoricalStatsByName(name: String): Single<DatabaseCountryHistoricalStats>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllCountryHistoricalStats(items: List<DatabaseCountryHistoricalStats>): Completable
+}
 
 @Database(
     entities = [
@@ -59,5 +69,7 @@ interface StatsDao {
     version = 2
 )
 abstract class CovidDatabase : RoomDatabase() {
-    abstract val statsDao: StatsDao
+    abstract val globalStatsDao: GlobalStatsDao
+    abstract val continentStatsDao: ContinentStatsDao
+    abstract val countryStatsDao: CountryStatsDao
 }
