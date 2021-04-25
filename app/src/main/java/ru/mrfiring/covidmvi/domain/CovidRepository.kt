@@ -11,4 +11,9 @@ interface CovidRepository {
     fun fetchContinentStats(sortBy: String): Completable
     fun getContinentStatsFromCache(): Single<List<DomainContinentStats>>
 
+    fun fetchGlobalHistoricalStats(resolution: ResolutionType): Completable
+    fun getGlobalHistoricalStatsFromCache(
+        resolution: ResolutionType
+    ): Single<DomainGlobalHistoricalStats>
+
 }

@@ -12,6 +12,11 @@ interface StatsDao {
     @Query("select * from DatabaseGlobalStats limit 1")
     fun getGlobalStatsList(): Single<List<DatabaseGlobalStats>>
 
+    @Query("select * from DatabaseGlobalHistoricalStats where resolution = :resolution")
+    fun getGlobalHistoricalStatsByResolution(
+        resolution: String
+    ): Single<List<DatabaseGlobalHistoricalStats>>
+
     @Query("select * from DatabaseContinentStats")
     fun getContinentStatsList(): Single<List<DatabaseContinentStats>>
 
@@ -28,13 +33,16 @@ interface StatsDao {
     fun insertGlobalStats(item: DatabaseGlobalStats): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllGlobalHistoricalStats(items: List<DatabaseGlobalHistoricalStats>): Completable
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllContinentStats(items: List<DatabaseContinentStats>): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllCountryHistoricalStats(items: List<DatabaseCountryHistoricalStats>) : Completable
+    fun insertAllCountryHistoricalStats(items: List<DatabaseCountryHistoricalStats>): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllContinentCountry(items: List<DatabaseContinentCountry>) : Completable
+    fun insertAllContinentCountry(items: List<DatabaseContinentCountry>): Completable
     //end insert queries
 
 }
@@ -45,9 +53,10 @@ interface StatsDao {
         DatabaseGlobalStats::class,
         DatabaseContinentStats::class,
         DatabaseContinentCountry::class,
+        DatabaseGlobalHistoricalStats::class,
         DatabaseCountryHistoricalStats::class
     ],
-    version = 1
+    version = 2
 )
 abstract class CovidDatabase : RoomDatabase() {
     abstract val statsDao: StatsDao

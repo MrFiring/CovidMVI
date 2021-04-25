@@ -85,4 +85,7 @@ dependencies {
 
     //Joda time
     implementation "joda-time:joda-time:$version_joda"
+
+    //MPAndroidChart
+    implementation "com.github.PhilJay:MPAndroidChart:$version_mpchart"
 }

@@ -50,6 +50,12 @@ data class DomainCountryHistoricalStats(
     val recovered: Map<String, Long>
 )
 
+data class DomainGlobalHistoricalStats(
+    val cases: Map<String, Long>,
+    val deaths: Map<String, Long>,
+    val recovered: Map<String, Long>
+)
+
 data class DomainGeneralStats(
     val name: String,
     val cases: Long,

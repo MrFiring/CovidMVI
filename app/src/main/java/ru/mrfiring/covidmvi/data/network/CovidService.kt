@@ -31,4 +31,9 @@ interface CovidService {
         @Query("lastDays") lastDays: Int = 30
     ): Single<CountryHistoricalStats>
 
+    @GET("covid-19/historical/all")
+    fun getGlobalHistoricalStats(
+        @Query("lastDays") lastDays: String
+    ): Single<HistoricalData>
+
 }

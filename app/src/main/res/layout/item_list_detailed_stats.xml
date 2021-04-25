@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/detailedTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/cases" />
+
+    <TextView
+        android:id="@+id/detailedTitleValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/detailedTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="35.856M" />
+
+    <TextView
+        android:id="@+id/detailedTodayText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/today"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailedTitle"
+        tools:text="Today" />
+
+    <TextView
+        android:id="@+id/detailedMillionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/per_one_million"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailedTodayText"
+        tools:text="Per one million" />
+
+    <TextView
+        android:id="@+id/detailedTodayValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textAlignment="viewEnd"
+        app:layout_constraintBaseline_toBaselineOf="@+id/detailedTodayText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detailedTitleValue"
+        tools:text="288000" />
+
+    <TextView
+        android:id="@+id/detailedMillionValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/detailedMillionText"
+        app:layout_constraintEnd_toEndOf="@+id/detailedTodayValue"
+        app:layout_constraintStart_toStartOf="@+id/detailedTitleValue"
+        tools:text="15000" />
+</androidx.constraintlayout.widget.ConstraintLayout>
