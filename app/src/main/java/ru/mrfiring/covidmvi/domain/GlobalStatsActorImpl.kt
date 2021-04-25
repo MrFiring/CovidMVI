@@ -8,7 +8,7 @@ import ru.mrfiring.covidmvi.presentation.features.GlobalStatsFeature
 import javax.inject.Inject
 
 class GlobalStatsActorImpl @Inject constructor(
-    private val repository: CovidRepository
+    private val repository: GlobalStatsRepository
 ): Actor<GlobalStatsFeature.State, GlobalStatsFeature.Wish, GlobalStatsFeature.Effect>{
 
     override fun invoke(state: GlobalStatsFeature.State, wish: GlobalStatsFeature.Wish): Observable<GlobalStatsFeature.Effect> {

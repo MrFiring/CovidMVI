@@ -28,7 +28,7 @@ interface CovidService {
     @GET("covid-19/historical/{country}")
     fun getHistoricalStatsByCountryName(
         @Path("country", encoded = true) countryName: String,
-        @Query("lastDays") lastDays: Int = 30
+        @Query("lastDays") lastDays: String
     ): Single<CountryHistoricalStats>
 
     @GET("covid-19/historical/all")

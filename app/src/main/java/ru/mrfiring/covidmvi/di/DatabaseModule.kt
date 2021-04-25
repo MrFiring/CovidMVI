@@ -7,8 +7,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.mrfiring.covidmvi.data.database.ContinentStatsDao
+import ru.mrfiring.covidmvi.data.database.CountryStatsDao
 import ru.mrfiring.covidmvi.data.database.CovidDatabase
-import ru.mrfiring.covidmvi.data.database.StatsDao
+import ru.mrfiring.covidmvi.data.database.GlobalStatsDao
 import javax.inject.Singleton
 
 @Module
@@ -25,6 +27,14 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideStatsDao(covidDatabase: CovidDatabase): StatsDao = covidDatabase.statsDao
+    fun provideGlobalStatsDao(covidDatabase: CovidDatabase): GlobalStatsDao = covidDatabase.globalStatsDao
+
+    @Provides
+    @Singleton
+    fun provideContinentStatsDao(covidDatabase: CovidDatabase): ContinentStatsDao = covidDatabase.continentStatsDao
+
+    @Provides
+    @Singleton
+    fun provideCountryStatsDao(covidDatabase: CovidDatabase): CountryStatsDao = covidDatabase.countryStatsDao
 
 }

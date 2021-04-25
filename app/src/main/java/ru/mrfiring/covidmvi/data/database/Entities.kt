@@ -56,9 +56,10 @@ data class DatabaseContinentCountry(
     val continentName: String
 )
 
-@Entity(primaryKeys = ["countryName", "date"])
+@Entity(primaryKeys = ["countryName", "resolution"])
 data class DatabaseCountryHistoricalStats(
     val countryName: String,
+    val resolution: String,
     val date: String,
     val cases: Long,
     val deaths: Long,
